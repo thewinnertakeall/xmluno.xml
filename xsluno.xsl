@@ -8,25 +8,28 @@
     <html>
       <head>
         <title>xsluno.xsl</title>
-        <link rel="alternate" type="application/rss+xml" title="Subscribe to What's New" href="http://your-site.com/your-feed.rss" />
+        <!-- CSS only -->
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous"></link>
+      <!-- JavaScript Bundle with Popper -->
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
       </head>
       <body>
-        <table border="1">
+        <table class="table">
           <tr bgcolor="#9acd32">
-            <th>Departamentos</th>
-            <th>Inscritos</th>
-            <th>Partido1</th>
-            <th>Partido2</th>
-            <th>Partido3</th>
-            <th>Total partidos</th>
-            <th>Porcentaje abstención</th>
+            <th scope="col">Departamentos</th>
+            <th scope="col">Inscritos</th>
+            <th scope="col">Partido1</th>
+            <th scope="col">Partido2</th>
+            <th scope="col">Partido3</th>
+            <th scope="col">Blanco</th>
+            <th scope="col">Porcentaje abstención</th>
           </tr>
           <xsl:for-each select="/Departamentos/Departamento">
             <tr>
-              <th>
+              <th cope="row">
                 <xsl:value-of select="@d" />
               </th>
-              <th>
+              <th >
                 <xsl:value-of select="Inscritos" />
               </th>
               <th>
@@ -42,14 +45,11 @@
                 <xsl:value-of select="Blanco" />
               </th>
               <th>
-                <xsl:value-of select="format-number(Partido1 + Partido2 + Partido3, '#')" />
-              </th>
-              <th>
                 <xsl:value-of select="format-number(((((Partido1 + Partido2 + Partido3 + Blanco)-Inscritos))div Inscritos), '#%')" />
               </th>
             </tr>
           </xsl:for-each >
-          <tr bgcolor="#9acd32">
+          <tr>
             <th>TOTALES</th>
             <th></th>
             <th>
@@ -61,21 +61,20 @@
             <th>
               <xsl:value-of select="sum(/Departamentos/Departamento/Partido3)"/>
             </th>
-            <th>
-              <xsl:value-of select="sum(/Departamentos/Departamento/Blanco)"/>
-            </th>
+            <th></th>
+            <th></th>
+            <th></th>
           </tr>
         </table>
-
-        <table border="1">
+        <br></br>
+        <table class="table">
           <tr bgcolor="#9acd32">
-            <th>Departamentos</th>
-            <th>Inscritos</th>
-            <th>Partido1</th>
-            <th>Partido2</th>
-            <th>Partido3</th>
-            <th>Total partidos</th>
-            <th>Porcentaje abstención</th>
+            <th scope="col">Departamentos</th>
+            <th scope="col">Inscritos</th>
+            <th scope="col">Partido1</th>
+            <th scope="col">Partido2</th>
+            <th scope="col">Partido3</th>
+            <th scope="col">Total partidos</th>
           </tr>
           <xsl:for-each select="/Departamentos/Departamento[@d= 'Atlántico']">
             <tr>
@@ -100,7 +99,12 @@
             </tr>
           </xsl:for-each >
         </table>
-        <h1>Cantidad de letras</h1>
+        <h2>Cantidad de letras</h2>
+        <xsl:for-each select="/Departamentos/Departamento">
+            <p>
+             <xsl:value-of select="@d"/> Tiene <xsl:value-of select="string-length(@d)"/> caracteres
+            </p>
+          </xsl:for-each >
         </body>
       </html>
     </xsl:template>
